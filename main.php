@@ -69,9 +69,9 @@ function can_modify_post_on_save( $post_id ) {
 		return false;
 	}
 
-	// Check the nonce (that's submitted when using the classic editor).
+	// Check the nonce (submitted via the classic editor or custom forms).
 	$doing_rest = ( defined( 'REST_REQUEST' ) && REST_REQUEST );
-	if ( ! $doing_rest && ( ! isset( $_POST[ NONCE_NAME ] ) ||
+	if ( ! $doing_rest && ! wp_doing_ajax() && ( ! isset( $_POST[ NONCE_NAME ] ) ||
 		! wp_verify_nonce( $_POST[ NONCE_NAME ], NONCE_ACTION ) )
 	) {
 		return false;
