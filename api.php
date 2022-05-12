@@ -4,10 +4,11 @@ namespace My_Custom_YOURLS;
 /*
  * Makes an YOURLS API request.
  *
- * @param array $args Params like 'action' sent to the YOURLS API
+ * @param array $args      Params like 'action' sent to the YOURLS API
+ * @param array $http_args Extra args for wp_remote_post()
  * @return object|null The response body (as an object) on success.
  */
-function yourls_api_request( array $args ) {
+function yourls_api_request( array $args, array $http_args = array() ) {
 	$timestamp = time();
 	$data      = array_merge( $args, array(
 		'timestamp' => $timestamp,
@@ -17,7 +18,7 @@ function yourls_api_request( array $args ) {
 
 	$response = wp_remote_post(
 		YOURLS_URL . '/yourls-api.php',
-		array( 'body' => $data )
+		array_merge( $http_args, array( 'body' => $data ) )
 	);
 
 	$body = wp_remote_retrieve_body( $response );
@@ -47,7 +48,7 @@ function get_post_shorturl( $post_id ) {
  *
  * Note: Does not send a custom keyword/slug for the short URL.
  *
- * @param int $post_id The post ID
+ * @param int $post_id           The post ID
  * @param bool $update_if_exists If the short URL meta is empty/missing, but there's
  *                               a short URL for the post permalink (i.e. the long
  *                               URL) in the YOURLS database, setting this parameter
