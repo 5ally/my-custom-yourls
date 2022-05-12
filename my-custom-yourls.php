@@ -3,7 +3,7 @@
 Plugin Name: My Custom YOURLS
 Plugin URI: https://github.com/5ally/my-custom-yourls
 Description: A sample plugin based on the <a href="https://github.com/aaroneaton/better-yourls/blob/2.3.0/includes/class-better-yourls-actions.php"><code>Better_YOURLS_Actions</code> class for the "Better YOURLS" plugin v2.3.0</a>. <strong>You must install &amp; activate the <a href="https://github.com/timcrockford/yourls-api-edit-url">Update Shortened URL plugin</a> <em>on your YOURLS website</em> in order for updating short URLs' data to work!</strong>
-Version: 20220407.1
+Version: 20220511.1
 */
 namespace My_Custom_YOURLS;
 
