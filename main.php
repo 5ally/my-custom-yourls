@@ -81,9 +81,10 @@ function can_modify_post_on_save( $post_id ) {
 	// route, or similar route for the current post type.
 	if ( $doing_rest && AUTO_CREATE_ON_REST_REQUEST ) {
 		$route = rest_get_route_for_post( $post_id );
-		$path = $GLOBALS['wp']->query_vars['rest_route'];
+		$path  = preg_quote( $GLOBALS['wp']->query_vars['rest_route'], '#' );
 
-		if ( $route !== $path ) {
+		// Allows /wp/v2/<rest base> and /wp/v2/<rest base>/<id>.
+		if ( ! preg_match( "#^$path(/$post_id)?$#", $route ) ) {
 			return false;
 		}
 	}
